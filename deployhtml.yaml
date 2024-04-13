@@ -1,0 +1,20 @@
+- name: install nginx and create index.html file
+  hosts: all
+  become: yes
+  tasks:
+    - name: update system
+      shell: sudo apt-get update -y
+
+    - name: install nginx
+      shell: sudo apt-get install nginx -y
+    
+    - name: create index.html
+      shell: sudo echo "Hello World Surender" > /var/www/html/index.html
+
+    - name: Nginx restart
+      shell: sudo systemctl restart nginx
+
+    - name: Copy about.html
+      template: 
+        src: ./about.html
+        dest: /var/www/html
